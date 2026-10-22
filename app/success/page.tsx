@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
-export default function Success({ searchParams }: { searchParams: { session_id?: string } }) {
+export default async function Success({ searchParams }: { searchParams: Promise<{ session_id?: string }> }) {
+  const { session_id } = await searchParams;
   return (
     <main style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 40 }}>
       <div style={{ maxWidth: 560, textAlign: 'center', display: 'flex', flexDirection: 'column', gap: 18 }}>
@@ -12,9 +13,9 @@ export default function Success({ searchParams }: { searchParams: { session_id?:
           <br />
           通常 72時間以内に発送いたします。
         </p>
-        {searchParams.session_id && (
+        {session_id && (
           <div className="mono" style={{ fontSize: 10, color: 'var(--ash)', letterSpacing: '.14em', textTransform: 'uppercase' }}>
-            REF // {searchParams.session_id}
+            REF // {session_id}
           </div>
         )}
         <Link href="/" className="btn" style={{ alignSelf: 'center', marginTop: 12 }}>
